@@ -1,0 +1,16 @@
+<div class="contents row" >
+  <% @notices.each do |notice| %>
+
+    <div  class="content_post" <% if notice.image.attached? %>  style="background-image: url(<%= rails_blob_path(notice.image) %>) " <% end %>  >
+
+
+
+    <!--<div class="content_post" style="background-image: url(<%#= tweet.image %>);">-->
+    <!--↑ここにバックグラウンドで画像が入る　divタグの中に書け-->
+     <span class="title"><%= notice.title %></span>
+      <%= simple_format(notice.notice) %>
+      <!--<span class="name"><%#= user.name %></span>-->
+      <!--ここに名前が来る-->
+    </div>
+  <% end %>
+</div>
