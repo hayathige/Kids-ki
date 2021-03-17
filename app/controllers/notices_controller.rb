@@ -1,8 +1,8 @@
 class NoticesController < ApplicationController
+    before_action :move_to_index, except: [:index, :show]
     
     def index
-        @notices = Notice.all
-
+        @notices = Notice.includes(:user).order("created_at DESC").page(params[:page]).per(5)
     end
     
     def new
@@ -10,20 +10,29 @@ class NoticesController < ApplicationController
     end
     
     def create
-        @notice = Notice.create(title: notice_params[:title], notice: notice_params[:notice], image: notice_params[:image])
-        # @notice = Notice.create(title: notice_params[:title], notice: notice_params[:notice], image: notice_params[:image], urser_id: current_user.id)
+        @notice = Notice.create(title: notice_params[:title], notice: notice_params[:notice], image: notice_params[:image], user_id: current_user.id)
     end
     
     def destroy
+        notice = Notice.find(params[:id])
+        notice.destroy if notice.user_id == current_user.id
     end
     
     def show
+        @notice = Notice.find(params[:id])
+        @comments = @notice.comments.includes(:user)
+        @comment = Comment.new
     end
     
-     def edit
+    def edit
+        @notice = Notice.find(params[:id])
     end
     
     def update
+        notice = Notice.find(params[:id])
+        if notice.user_id == current_user.id
+          notice.update(notice_params)
+        end
     end
     
     private
@@ -31,6 +40,7 @@ class NoticesController < ApplicationController
         params.require(:notice).permit(:title, :notice, :image)
     end
     
-    
-    
+    def move_to_index
+        redirect_to action: :index unless user_signed_in?
+    end    
 end
