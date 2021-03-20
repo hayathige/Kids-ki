@@ -1,8 +1,7 @@
 <div class="contents row">
   <p><%= @name %>さんの投稿一覧</p>
   <% @notices.each do |notice| %>
-    <div  class="content_post" <% if notice.image.attached? %>  style="background-image: url(<%= rails_blob_path(notice.image) %>) " <%  end %>  >
-      <%= simple_format(notice.notice) %>
-    </div>
+    <%= render partial: "notices/notice", locals: { notice: notice } %>
   <% end %>
+  <%= paginate(@notices) %>
 </div>
