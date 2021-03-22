@@ -301,9 +301,9 @@ div.contents.row {
       bottom: 30px;
       z-index: 2;
       font-size: 13px;
-      a {
+      a.namename {
         display: block;
-        color: #aaa;
+        color: red;
         &:hover {
           text-decoration: underline;
           color: #aaa;

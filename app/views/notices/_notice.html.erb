@@ -1,4 +1,4 @@
-   <div  class="content_post" <% if notice.image.attached? %>  style="background-image: url(<%= rails_blob_path(notice.image) %>) " <%  end %>  >
+  <div  class="content_post" <% if notice.image.attached? %>  style="background-image: url(<%= rails_blob_path(notice.image) %>) " <%  end %>  >
         <div class="more">
           <span><%= image_tag 'arrow_top.png' %></span>
           <ul class="more_list">
@@ -19,8 +19,29 @@
      <span class="title"><%= notice.title %></span>
       <%= simple_format(notice.notice) %>
      <span class="name">
-        <a href="/users/<%= notice.user_id %>">
+        <a class="namename" href="/users/<%= notice.user_id %>">
           <span>投稿者</span><%= notice.user.name %>
         </a>
+        <div class="like">
+          <% if user_signed_in? %>
+            <% if current_user.already_liked?(notice) %>
+              <%= link_to notice_likes_path(notice), method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= link_to notice_likes_path(notice), method: :post do %>
+                <i class="far fa-heart"></i>
+                <%= notice.likes.count %>
+              <% end %>
+            <% end %>
+            <%= notice.likes.count %>
+          <% else %>
+              <%= link_to new_user_session_path, method: :get do %>
+                <i class="fas fa-heart"></i>
+                <%= notice.likes.count %>
+              <% end %>
+ 
+          <% end %>
+        </div>
       </span>
-    </div>
+  </div>
