@@ -1,3 +1,12 @@
+<div class="group_create">
+  <ul>
+    <li>
+      <h1>グループに入って友だちの【気付き】も見よう！</h1>
+      <h3><%= link_to "→グループ登録", "/users/new" %></h3>
+    </li>
+  </ul>
+</div>
+
 <div class="contents row">
   <p><%= @name %>さんの投稿一覧</p>
   <% @notices.each do |notice| %>

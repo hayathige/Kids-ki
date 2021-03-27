@@ -3,7 +3,11 @@ class NoticesController < ApplicationController
     # noticeコントローラーの領域にはログインユーザー以外は入れなくする。どのアクションもだめ
     
     def index
-        @notices = current_user.group.notices.includes(:user).order("created_at DESC").page(params[:page]).per(5)
+        if current_user.group_id.nil?
+            redirect_to  controller: :top
+        else
+            @notices = current_user.group.notices.includes(:user).order("created_at DESC").page(params[:page]).per(5)
+        end
     end
     
     def new

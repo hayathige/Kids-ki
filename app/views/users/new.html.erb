@@ -1,0 +1,16 @@
+<div class="contents row">
+  <h2>グループ登録</h2>
+
+  <%= form_for current_user do |f| %>
+
+    <div class="field">
+      <%= f.label :group %> <em>(数字を入れてください)</em><br />
+      <%= f.text_field :group_id %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

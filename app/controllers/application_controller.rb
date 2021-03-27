@@ -11,8 +11,12 @@ class ApplicationController < ActionController::Base
   #  new_user_session_path
   # end
   
+  # def after_sign_in_path_for(resource)
+  #   user_path(resource)
+  # end
+  
   def after_sign_in_path_for(resource)
-    notices_path(resource)
+      new_user_path(resource)
   end
 
  
