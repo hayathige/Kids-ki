@@ -3,4 +3,5 @@ class Notice < ApplicationRecord
      belongs_to :user
      has_many :comments
      has_many :likes, dependent: :destroy
+     belongs_to :group
 end

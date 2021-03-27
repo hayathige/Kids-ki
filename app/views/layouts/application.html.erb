@@ -35,6 +35,7 @@
                 <li>
                   <%= link_to "マイページ", "/users/#{current_user.id}" %>
                   <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                  <%#= link_to current_user.group.group_name, group_path(current_user.group) %>
                 </li>
               </ul>
             </span>

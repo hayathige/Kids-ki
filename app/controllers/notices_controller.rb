@@ -1,8 +1,9 @@
 class NoticesController < ApplicationController
-    before_action :move_to_index, except: [:index, :show]
+    before_action :move_to_top_index
+    # noticeコントローラーの領域にはログインユーザー以外は入れなくする。どのアクションもだめ
     
     def index
-        @notices = Notice.includes(:user).order("created_at DESC").page(params[:page]).per(5)
+        @notices = current_user.group.notices.includes(:user).order("created_at DESC").page(params[:page]).per(5)
     end
     
     def new
@@ -10,7 +11,7 @@ class NoticesController < ApplicationController
     end
     
     def create
-        @notice = Notice.create(title: notice_params[:title], notice: notice_params[:notice], image: notice_params[:image], user_id: current_user.id)
+        @notice = Notice.create(title: notice_params[:title], notice: notice_params[:notice], image: notice_params[:image], user_id: current_user.id, group_id: current_user.group_id)
     end
     
     def destroy
@@ -40,7 +41,9 @@ class NoticesController < ApplicationController
         params.require(:notice).permit(:title, :notice, :image)
     end
     
-    def move_to_index
-        redirect_to action: :index unless user_signed_in?
+    def move_to_top_index
+        redirect_to  controller: :top, action: :index unless user_signed_in?
+        
+        # サインインしてなかったら、トップコントローラーのインデックスに飛ばす
     end    
 end
