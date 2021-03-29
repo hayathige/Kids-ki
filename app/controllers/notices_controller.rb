@@ -6,7 +6,7 @@ class NoticesController < ApplicationController
         if current_user.group_id.nil?
             redirect_to  controller: :top
         else
-            @notices = current_user.group.notices.includes(:user).order("created_at DESC").page(params[:page]).per(5)
+        @notices = current_user.group.notices.includes(:user).order("created_at DESC").page(params[:page]).per(5)
         end
     end
     

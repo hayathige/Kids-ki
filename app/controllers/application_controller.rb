@@ -16,12 +16,15 @@ class ApplicationController < ActionController::Base
   # end
   
   def after_sign_in_path_for(resource)
-      new_user_path(resource)
+      notices_path(resource)
   end
 
- 
-  protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-  end   
+    # sign_inのときに、group_keyも許可する
+      devise_parameter_sanitizer.permit(:sign_in, keys:[:group_key])
+    # sign_upのときに、group_keyも許可する
+      devise_parameter_sanitizer.permit(:sign_up, keys:[:group_key, :name])
+    #account_updateのときに、group_keyも許可する
+      devise_parameter_sanitizer.permit(:account_update, keys:[:group_key])
+  end
 end

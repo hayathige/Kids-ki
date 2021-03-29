@@ -1,16 +1,10 @@
-<div class="group_create">
-  <ul>
-    <li>
-      <h1>グループに入って友だちの【気付き】も見よう！</h1>
-      <h3><%= link_to "→グループ登録", "/users/new" %></h3>
-    </li>
-  </ul>
-</div>
-
 <div class="contents row">
   <p><%= @name %>さんの投稿一覧</p>
-  <% @notices.each do |notice| %>
-    <%= render partial: "notices/notice", locals: { notice: notice } %>
-  <% end %>
+  <%# @notices.each do |notice| %>
+    <%#= render partial: "notices/notice", locals: { notice: notice } %>
+    <!--collectionを使う場合はeachは必要ない-->
+    <%= render partial: "notices/notice", collection: @notices %>
+  <%# end %>
+    <a class="btn" href="/notices">投稿一覧へ戻る</a>
   <%= paginate(@notices) %>
 </div>

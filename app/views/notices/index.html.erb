@@ -1,6 +1,11 @@
 <div class="contents row" >
-  <% @notices.each do |notice| %>
-   <%= render partial: "notice", locals: { notice: notice } %>
-  <% end %>
+    <a class="namename" href="/groups/<%= current_user.group_id %>">
+        <span><%= current_user.group.key %></span>
+    </a>
+    <span>グループの投稿一覧</span>
+  <%# @notices.each do |notice| %>
+   <%#= render partial: "notice", locals: { notice: notice } %>
+   <%= render partial: "notice", collection: @notices %>
+  <%# end %>
   <%= paginate(@notices) %>
 </div>

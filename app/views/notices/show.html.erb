@@ -18,6 +18,26 @@
       <a href="/users/<%= @notice.user.id %>">
         <span>投稿者</span><%= @notice.user.name %>
       </a>
+      <div class="like">
+          <% if user_signed_in? %>
+            <% if current_user.already_liked?(@notice) %>
+              <%= link_to notice_likes_path(@notice), method: :delete do %>
+                <i class="fas fa-heart"></i>
+                <%= @notice.likes.count %>
+              <% end %>
+            <% else %>
+              <%= link_to notice_likes_path(@notice), method: :post do %>
+                <i class="far fa-heart"></i>
+                <%= @notice.likes.count %>
+              <% end %>
+            <% end %>
+          <% else %>
+              <%= link_to new_user_session_path, method: :get do %>
+                <i class="fas fa-heart"></i>
+                <%= @notice.likes.count %>
+              <% end %>
+          <% end %>
+      </div>
     </span>
   </div>
    <div class="container"> 
